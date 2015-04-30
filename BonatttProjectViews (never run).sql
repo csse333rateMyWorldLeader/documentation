@@ -24,3 +24,10 @@ CREATE VIEW PartyMembers AS
 	FROM PoliticalParty INNER JOIN Leader
 	ON leader_id = leader_id
 	ORDER BY ID
+GO
+
+-- used to for general access to users, w/o while the actual user_account table will be hidden so that their email and password are hidden.
+CREATE VIEW PublicUserView AS
+	SELECT username, number_ratings
+	FROM User_Account
+GO

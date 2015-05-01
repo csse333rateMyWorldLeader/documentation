@@ -1,0 +1,62 @@
+DROP TABLE STATEADJACENTTO
+DROP TABLE REGIONADJACENTTO
+DROP TABLE REGION
+DROP TABLE COUNTRYALLIESWITH
+DROP TABLE STATEORTERRITORY
+DROP TABLE LEADS
+DROP TABLE COUNTRY
+DROP TABLE CONTINENT
+DROP TABLE RATING
+DROP TABLE LEADER
+
+CREATE TABLE POLITICALPLACE(
+	ppID smallint,
+	[type] varchar(20),
+	name varchar(45),
+	[population] int,
+	superppID smallint REFERENCES POLITICALPLACE(ppID),
+
+	PRIMARY KEY(ppID)
+);
+
+CREATE TABLE LEADER(
+	leader_id smallint,
+	gender VARCHAR(1),
+	bday date,
+	fname VARCHAR(20),
+	midint VARCHAR(2),
+	lname VARCHAR(20),
+
+	PRIMARY KEY(leader_id)
+)
+
+CREATE TABLE LEADS(
+	leader_id smallint REFERENCES LEADER(leader_id),
+	[year] smallint,
+	leadedID smallint REFERENCES POLITICALPLACE(ppID),
+
+	PRIMARY KEY(leader_id, [year])
+);
+
+CREATE TABLE RATING(
+	username VARCHAR(10) REFERENCES USER_ACCOUNT(username),
+	leader_id smallint REFERENCES LEADER(leader_id),
+	txt VARCHAR(1024),
+	rating smallint,
+
+	PRIMARY KEY(username, leader_id)
+);
+
+CREATE TABLE PPLEADERMEMBER(
+	leaderid smallint REFERENCES LEADER(leader_id),
+	[year] smallint,
+	polipartyID smallint REFERENCES POLItICALPARTY(ID)
+
+	PRIMARY KEY(leaderid,[year])
+);
+
+ALTER TABLE RATING
+ADD [date] date
+
+ALTER TABLE POLITICALPARTY
+ADD [placeOfOrigin] smallint REFERENCES POLITICALPLACE(ppID)

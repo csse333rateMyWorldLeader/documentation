@@ -1,3 +1,6 @@
+USE RateYourWorldLeader
+GO
+
 CREATE PROCEDURE addRating
 	
 	@leader_id smallint,
@@ -33,7 +36,7 @@ AS
 
 		-- add the user's new rating to the database
 		INSERT INTO Rating
-		VALUES @user, @leader_id, @text, @rating, GETDATE()
+		VALUES (@user, @leader_id, @text, @rating, GETDATE());
 		
 		-- update that the user has one more rating posted
 		UPDATE User_Account
